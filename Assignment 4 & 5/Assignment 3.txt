@@ -1,0 +1,33 @@
+3. Component Interaction
+Imagine that we have two components - ComponentA and ComponentB. Both
+components have to interact with each other in some way:
+- Send some data from ComponentA to ComponentB and vice versa.
+- Call some methods from ComponentA to ComponentB and vice versa.
+Given this information, please answer following questions:
+
+1) What options do we have to establish such communication?
+	Sending some data from ComponentA to CompnentB if ComponentB is child of ComponentA
+		1) Using @Output we can emmit a value using event binding. we can send value to parent
+		2) we can use @Input and property bind the values to the child.
+		3) Using @ViewChild get refferance of the element and can assign values.
+		4) Inject same service into two components have access to same values
+
+	calling methods:
+		1) Using @ViewChild get refferance of the element and we can call the function in that element.
+		2) Using rxjs elements like subject, behavioural subject etc,. in services and trigger methods by subcribing the variable.
+
+2) For each option describe what are the pros and cons of this solution?
+	@Input and @output 
+		Pros: simple and easy to follow.
+		cons: can't use for multi-layer communication.
+	Services:
+		pros: can be used in multiple component communication. take advantage of rxjs.
+		cons: If service dependncy injection not managed properly, it will difficult to debug.
+
+	@viewChild
+		pros: easy to use for calling functions and asign values. can do dom level changes
+		cons: can be used only after View Init. can get unreadable quickly if we try to solve bigger problems.
+3) For each option describe what are the cases the solution fits best?
+	@Input and @Output is best fit single parent to child communication.
+	@viewChild not recommended.
+	Service: recommended for evey scenario except simple parent to child communication.

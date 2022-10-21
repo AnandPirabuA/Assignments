@@ -1,0 +1,46 @@
+4. Code Review
+Review following code snippet and answer questions:
+1) What are the problems in this code snippet?
+2) How can we solve them?
+3) If there are multiple options to solve them, what benefits and drawbacks of
+each method?
+
+@Component({
+selector: 'app-user-panel',
+template: `<div class="user-panel">{{ getUserName() }}</button>`,
+})
+export class UserPanelComponent {
+private _user;
+
+constructor(
+private _authService: AuthService,
+) {
+this._authService
+.user
+.subscribe(user => {
+this._user = user;
+});
+}
+public getUserName() {
+return this._user.name;
+}}
+
+Answer:
+
+1) What are the problems in this code snippet?
+	1) Div is not properly closed instead closed with button tag.
+	2) there is no styles or styleUrls
+	3) _user variable does'nt have a type.
+	4) Better to have service calls in ngOnit instead of constructor.
+	5) Subscription not unsubscribed.
+
+2) How can we solve them?
+	1) close the div with </div>
+	2) add inline styles or external css file for user-panel if its not diclared in style.css.
+	3) declare _user with its class type.
+	4) implement OnInit to component and ngOnInit function. Than move constructor code to ngOninit
+	5) Every subscription should be managed with first(), take(1) or unsubscribe.
+
+3) If there are multiple options to solve them, what benefits and drawbacks of
+each method?
+	1) we can make our service public and instead of function, with async pipe we can display value dirtectly in html. will reduce lot of code.
